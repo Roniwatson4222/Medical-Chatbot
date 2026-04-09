@@ -4,7 +4,7 @@
 mkdir -p src
 mkdir -p research
 
-# creating files
+#creating files
 touch src/__init__.py
 touch src/helper.py
 touch src/prompt.py
