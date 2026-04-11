@@ -2,10 +2,9 @@ from dotenv import load_dotenv
 import os
 from src.helper import load_pdf_file, filter_to_minimal_docs, text_split, download_embeddings
 from pinecone import Pinecone, ServerlessSpec
-from langchain_pinecone import PineConeVectorStore
+from langchain_pinecone import PineconeVectorStore
 
 load_dotenv(override=True)
-
 
 
 pinecone_api_key = os.getenv("PINECONE_API_KEY")
@@ -14,13 +13,13 @@ gemini_api_key = os.getenv("GEMINI_API_KEY")
 
 os.environ["PINECONE_API_KEY"] = pinecone_api_key
 os.environ["GEMINI_API_KEY"] = gemini_api_key
+print(os.getcwd())
 
-
-extracted_data =load_pdf_files("data")
+extracted_data = load_pdf_file("data")
 filter_data =filter_to_minimal_docs(extracted_data)
-text_chunks =text(filter_data)
+text_chunks =text_split(filter_data)
 
-embeddings = download_embeddings(text_chunks)
+embeddings = download_embeddings()
 
 pc= Pinecone(api_key=pinecone_api_key)
 
@@ -35,8 +34,10 @@ if not pc.has_index(index_name):
 
 index = pc.Index(index_name)
 
-docsearch = PineconeVectorStore.from_documents(
-  documents=text_chunks,
-  embedding=embeddings,
-  index_name=index_name,
- )
+stats = index.describe_index_stats()
+if stats.total_vector_count == 0:
+  docsearch = PineconeVectorStore.from_documents(
+    documents = text_chunks,
+    embedding = embeddings, 
+    index_name = index_name
+)

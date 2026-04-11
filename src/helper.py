@@ -2,15 +2,13 @@ from typing import List
 from langchain_core.documents import Document
 from langchain_community.document_loaders import PyPDFLoader, DirectoryLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
-from langchain_community.embeddings import HuggingFaceEmbeddings
-
+from langchain_huggingface import HuggingFaceEmbeddings
 
 #Extract data from PDF file
 def load_pdf_file(data):
   loader = DirectoryLoader(data, glob ="*.pdf", loader_cls=PyPDFLoader)    
-  documents =loader.load()
+  documents = loader.load()
   return documents
-
 
 # Filter the content from document 
 def filter_to_minimal_docs(docs: List[Document]) -> List[Document]:
@@ -30,9 +28,6 @@ def text_split(extracted_data):
    return text_chunks
 
 #Download embeddings from HuggingFace
-def download_embeddings(text_chunks):
+def download_embeddings():
    embeddings=HuggingFaceEmbeddings(model_name='sentence-transformers/all-MiniLM-L6-v2')
    return embeddings
-
-
-
