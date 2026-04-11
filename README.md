@@ -13,3 +13,7 @@ conda activate medbot
 
 ## install the requirements
 pip install -r requirements.txt
+
+
+ECR URI
+473688632187.dkr.ecr.ap-south-2.amazonaws.com/med-bot
