@@ -38,6 +38,9 @@ jobs:
   Continuous-Deployment:
     needs: Continuous-Integration
     runs-on: self-hosted
+    env:
+    REPOSITORY: med-bot
+    PORT: 8080
     steps:
       - name: Checkout
         uses: actions/checkout@v3
