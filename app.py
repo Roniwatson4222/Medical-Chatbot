@@ -17,10 +17,10 @@ import os
 app = Flask(__name__)
 load_dotenv(override=True)
 
-pinecone_api_key = os.getenv("PINECONE_API_KEY")
-gemini_api_key = os.getenv("GEMINI_API_KEY")
-os.environ["PINECONE_API_KEY"] = pinecone_api_key
-os.environ["GEMINI_API_KEY"] = gemini_api_key
+PINECONE_API_KEY = os.getenv("PINECONE_API_KEY")
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
+os.environ["PINECONE_API_KEY"] = PINECONE_API_KEY
+os.environ["GEMINI_API_KEY"] = GEMINI_API_KEY
 
 embeddings = download_embeddings()
 

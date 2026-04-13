@@ -7,12 +7,12 @@ from langchain_pinecone import PineconeVectorStore
 load_dotenv(override=True)
 
 
-pinecone_api_key = os.getenv("PINECONE_API_KEY")
-gemini_api_key = os.getenv("GEMINI_API_KEY")
+PINECONE_API_KEY = os.getenv("PINECONE_API_KEY")
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 
 
-os.environ["PINECONE_API_KEY"] = pinecone_api_key
-os.environ["GEMINI_API_KEY"] = gemini_api_key
+os.environ["PINECONE_API_KEY"] = PINECONE_API_KEY
+os.environ["GEMINI_API_KEY"] = GEMINI_API_KEY
 print(os.getcwd())
 
 extracted_data = load_pdf_file("data")
@@ -21,7 +21,7 @@ text_chunks =text_split(filter_data)
 
 embeddings = download_embeddings()
 
-pc= Pinecone(api_key=pinecone_api_key)
+pc= Pinecone(api_key=PINECONE_API_KEY)
 
 index_name = "medical-chatbot"
 if not pc.has_index(index_name):
