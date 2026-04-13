@@ -55,14 +55,14 @@ jobs:
 
       - name: Run Docker Image to serve users
         run: |
-        # 1. Stop and remove any old version of the bot
+          #1. Stop and remove any old version of the bot
           docker ps -q --filter "publish=$PORT" | xargs -r docker stop
           docker ps -aq --filter "publish=$PORT" | xargs -r docker rm
 
-        # 2. Pull the image using registry output (no hardcoding)
+          #2. Pull the image using registry output (no hardcoding)
           docker pull ${{ steps.login-ecr.outputs.registry }}/$REPOSITORY:latest
 
-        # 3. Run the new container in the background
+          #3. Run the new container in the background
           docker run -d -p $PORT:$PORT \
             -e AWS_ACCESS_KEY_ID="${{ secrets.AWS_ACCESS_KEY_ID }}" \
             -e AWS_SECRET_ACCESS_KEY="${{ secrets.AWS_SECRET_ACCESS_KEY }}" \
